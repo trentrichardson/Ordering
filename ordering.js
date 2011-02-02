@@ -31,7 +31,16 @@
 		this.get = function(key){
 			return values[key];
 		};
+		
+		this.getAt = function(index){
+			if(index >= this.length) return null;
+			return values[key[index]];
+		};
 
+		this.indexOf = function(key){
+			return keys.indexOf(key);
+		};
+		
 		this.set = function(key, value){
 			var index = keys.indexOf(key);
 			if (index === -1){
@@ -116,6 +125,23 @@
 			return c;
 		};
 
+		this.subset = function(arr){
+			var c = new Ordering();
+			for (var i=0,l=this.length; i<l; i++){
+				if(arr.indexOf(keys[i]) >= 0) c.set(keys[i], values[keys[i]]);
+			}
+			return c;
+		};
+
+		this.slice = function(start, end){
+			var c = new Ordering(),
+				ks = this.keys().slice(start, end);
+			for (var i=0,l=ks.length; i<l; i++){
+				c.set(ks[i], values[ks[i]]);
+			}
+			return c;
+		};
+		
 		this.some = function(fn, bind){
 			for (var i=0,l=this.length; i<l; i++){
 				if(fn.call(bind, keys[i], values[keys[i]], this)) return true;
