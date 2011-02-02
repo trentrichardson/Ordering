@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Test Ordering Object</title>
+		
+		<script src="ordering.js"></script>
+		
+	</head>
+	<body>
+		<h1>Test Ordering Object</h1>
+
+		
+		<script type="text/javascript">
+				
+			var str = '',
+
+				debug = function(str){
+					if(window.console) console.log(str);
+					else alert(str);
+				},
+				
+				sf = function(ak,av,bk,bv){
+					var v1 = av.toLowerCase(),v2 = bv.toLowerCase();
+			
+					if(v1 < v2) return -1;
+					if(v1 > v2) return 1;
+					return 0;
+				}
+
+			//------------------------------------------------------------
+			var ord = new Ordering({ 
+								Tom: 'first', 
+								Jane: 'second', 
+								Sally: 'third', 
+								Bill: 'forth', 
+								Lydia: 'fifth', 
+								Carl: 'sixth', 
+								Stan: 'seventh', 
+								Earl: 'eighth', 
+								Paul: 'ninth', 
+								Tray: 'tenth' 
+							}, sf);
+
+			//------------------------------------------------------------			
+			ord.inject('Trent', 'NEW ITEM', function(pk, pv, nk, nv){ 
+				return (nk=='Earl'); 
+			});
+
+			//------------------------------------------------------------
+			ord.set('Jane','segundo');
+
+			//------------------------------------------------------------
+			ord.erase('Sally');
+
+			//------------------------------------------------------------
+			ord.sort(function(ak,av,bk,bv){
+				var v1 = av.toLowerCase(),v2 = bv.toLowerCase();
+			
+				if(v1 < v2) return -1;
+				if(v1 > v2) return 1;
+				return 0;
+			});
+			
+			//------------------------------------------------------------
+			ord.each(function(k,v){
+				str += k +': '+ v +'\n';
+			});
+
+			//------------------------------------------------------------
+			debug(str);
+			
+		</script>
+	</body>
+</html>
