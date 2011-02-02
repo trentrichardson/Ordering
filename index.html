@@ -48,6 +48,10 @@
 
 			//------------------------------------------------------------ set
 			ord.set('Jane','segundo');
+			
+			ord.set('Ted','ocho');
+			
+			ord.set('Sammy','seventh');
 
 			//------------------------------------------------------------ some
 			var sometf = ord.some(function(k,v,o){
@@ -63,15 +67,6 @@
 			
 			//------------------------------------------------------------ erase
 			ord.erase('Sally');
-
-			//------------------------------------------------------------ sort
-			ord.sort(function(ak,av,bk,bv){
-				var v1 = av.toLowerCase(),v2 = bv.toLowerCase();
-			
-				if(v1 < v2) return -1;
-				if(v1 > v2) return 1;
-				return 0;
-			});
 
 			//------------------------------------------------------------ each
 			str = 'All: \n';

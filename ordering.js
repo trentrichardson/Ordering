@@ -43,11 +43,15 @@
 		
 		this.set = function(key, value){
 			var index = keys.indexOf(key);
-			if (index === -1){
+			if (index !== -1){
+				values[key] = value;
+			} else if(this.sortfn === null){
 				values[key] = value;
 				keys[this.length++] = key;
 			} else {
-				values[key] = value;
+				this.inject(key, value, function(pk, pv, nk, nv, t){
+					return (t.sortfn.call(null, key, value, nk, nv) < 0);
+				});
 			}
 			return this;
 		};
@@ -72,8 +76,9 @@
 
 		this.each = function(fn, bind){
 			for (var i=0, l=this.length; i < l; i++){
-				fn.call(bind, keys[i], values[keys[i]], this);
+				if(fn.call(bind, keys[i], values[keys[i]], this) === false) break;
 			}
+			return this;
 		};
 
 		this.inject = function(newKey, newVal, fn, bind){
